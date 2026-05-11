@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="warning-page">
+
+    <div class="warning-header">
+        <h2>🦉 Owl Messenger Center</h2>
+        <p>
+            Magical warnings and overdue notifications are delivered
+            through the enchanted owl network.
+        </p>
+    </div>
+
+    <!-- FLYING OWL -->
+    <div class="warning-owl">
+        🦉✉️
+    </div>
+
+    {% if warnings %}
+
+    <div class="warning-grid">
+
+        {% for w in warnings %}
+
+        <div class="warning-card {% if w.type == 'overdue' %}overdue-card{% endif %}">
+
+            <div class="warning-icon">
+                {% if w.type == 'overdue' %}
+                    🔴
+                {% else %}
+                    🟡
+                {% endif %}
+            </div>
+
+            <h3>
+                {% if w.type == 'overdue' %}
+                    Overdue Warning
+                {% else %}
+                    Reminder Notice
+                {% endif %}
+            </h3>
+
+            <p>{{ w.message }}</p>
+
+            <span class="warning-date">
+                {{ w.created_at.strftime('%Y-%m-%d') }}
+            </span>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-warning">
+        ✨ No magical warnings have been sent yet.
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

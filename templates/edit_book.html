@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Edit Book</h2>
+
+<form method="POST">
+
+    <label>Title</label><br>
+    <input name="title" value="{{ book.title }}"><br>
+
+    <label>Author</label><br>
+    <input name="author" value="{{ book.author }}"><br>
+
+    <label>Year</label><br>
+    <input name="year" value="{{ book.year }}"><br>
+
+    <label>Language</label><br>
+    <input name="language" value="{{ book.language }}"><br>
+
+    <!-- ✅ THIS WAS MISSING -->
+    <label>Genre</label><br>
+    <input name="genre" value="{{ book.genre }}"><br>
+
+    <label>Description</label><br>
+    <textarea name="description">{{ book.description }}</textarea><br>
+
+    <br>
+    <button type="submit">Update Book</button>
+
+</form>
+
+{% endblock %}

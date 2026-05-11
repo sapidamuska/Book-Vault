@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Book Vault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- SOUND BUTTON -->
+
+<button id="soundToggle" class="sound-btn">
+    🔊
+</button>
+
+
+<!-- BACKGROUND MUSIC -->
+
+<audio id="bgMusic" loop>
+    <source
+    src="{{ url_for('static', filename='magic-library.mp3') }}"
+    type="audio/mpeg">
+</audio>
+
+
+<!-- PAGE FLIP SOUND -->
+
+<audio id="pageSound">
+    <source
+    src="{{ url_for('static', filename='page-flip.mp3') }}"
+    type="audio/mpeg">
+</audio>
+
+
+<!-- BACKGROUND OVERLAY -->
+
+<div class="background-overlay"></div>
+
+
+<!-- FLOATING PARTICLES -->
+
+<div class="particles"></div>
+
+
+<!-- FLOATING OWL -->
+
+<div class="owl">
+    🦉
+</div>
+
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="logo-section">
+
+        <h1>📚 Book Vault</h1>
+
+        <p class="subtitle">
+            Magical Library System
+        </p>
+
+    </div>
+
+    <div class="nav-links">
+
+        {% if session.get('user') %}
+
+            <a href="/dashboard">Dashboard</a>
+
+            <a href="/books">Books</a>
+
+            <a href="/history">History</a>
+
+            <a href="/warnings">Warnings</a>
+
+            {% if session.get('role') in ['admin', 'librarian'] %}
+
+                <a href="/add">Add Book</a>
+
+                <a href="/users">Users</a>
+
+            {% endif %}
+
+            <span class="user-badge">
+
+                👤 {{ session['user'] }}
+
+                ({{ session['role'] }})
+
+            </span>
+
+            <a class="logout-btn" href="/logout">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="/login">Login</a>
+
+            <a href="/register">Register</a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main-container">
+
+    {% block content %}{% endblock %}
+
+</div>
+
+
+<!-- SOUND SCRIPT -->
+
+<script>
+
+const bgMusic = document.getElementById("bgMusic");
+
+const pageSound = document.getElementById("pageSound");
+
+const soundBtn = document.getElementById("soundToggle");
+
+let soundEnabled = false;
+
+
+// TOGGLE SOUND
+
+soundBtn.addEventListener("click", async () => {
+
+    try {
+
+        if (!soundEnabled) {
+
+            bgMusic.volume = 0.12;
+
+            await bgMusic.play();
+
+            soundBtn.innerHTML = "🔇";
+
+            soundEnabled = true;
+
+        } else {
+
+            bgMusic.pause();
+
+            soundBtn.innerHTML = "🔊";
+
+            soundEnabled = false;
+        }
+
+    } catch(error) {
+
+        console.log("Audio Error:", error);
+    }
+
+});
+
+
+// PAGE SOUND
+
+function playPageSound() {
+
+    if (!soundEnabled) return;
+
+    pageSound.currentTime = 0;
+
+    pageSound.volume = 0.4;
+
+    pageSound.play();
+}
+
+</script>
+
+</body>
+</html>

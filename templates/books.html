@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="books-hero">
+
+    <div class="books-header">
+
+        <h2>📚 The Enchanted Archives</h2>
+
+        <p>
+            Search through the magical shelves of the ancient library.
+        </p>
+
+    </div>
+
+    <!-- SEARCH AREA -->
+
+    <div class="magic-search-area">
+
+        <form action="/search" method="GET" class="magic-search-form">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Search magical books, authors, genres..."
+            >
+
+            <button type="submit">
+                🔍 Search the Vault
+            </button>
+
+        </form>
+
+        <div class="search-scene">
+
+            <div class="book-pile pile1">📚</div>
+            <div class="book-pile pile2">📖</div>
+            <div class="book-pile pile3">📘</div>
+            <div class="book-pile pile4">📕</div>
+
+            <div class="search-owl">
+                🦉
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BOOK GRID -->
+
+    <div class="enchanted-book-grid">
+
+        {% for book in books %}
+
+        <div
+        class="enchanted-book-card"
+
+        onclick="openBookModal(
+        '{{ book.title }}',
+        '{{ book.author }}',
+        `{{ book.description }}`
+        )"
+        >
+
+            <div class="book-glow-effect"></div>
+
+            <div class="book-top">
+
+                <div class="book-icon">
+                    📖
+                </div>
+
+                <div>
+                    <h3>{{ book.title }}</h3>
+                    <p class="author-name">{{ book.author }}</p>
+                </div>
+
+            </div>
+
+            <div class="book-info">
+
+                <p><strong>Year:</strong> {{ book.year }}</p>
+
+                <p><strong>Language:</strong> {{ book.language }}</p>
+
+                <p><strong>Genre:</strong> {{ book.genre }}</p>
+
+            </div>
+
+            <div class="book-status">
+
+                {% if book.available %}
+
+                    <span class="available-status">
+                        🟢 Available
+                    </span>
+
+                {% else %}
+
+                    <span class="borrowed-status">
+                        🔴 Borrowed
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+            <div class="book-actions">
+
+                {% if book.available %}
+
+                <a
+                class="button green"
+                href="/borrow/{{ book.id }}"
+                onclick="event.stopPropagation();"
+                >
+                    Borrow
+                </a>
+
+                {% endif %}
+
+                {% if session.get('role') in ['admin', 'librarian'] %}
+
+                <a
+                class="button orange"
+                href="/edit/{{ book.id }}"
+                onclick="event.stopPropagation();"
+                >
+                    Edit
+                </a>
+
+                <a
+                class="button red"
+                href="/delete/{{ book.id }}"
+                onclick="event.stopPropagation();"
+                >
+                    Delete
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+<!-- BOOK MODAL -->
+
+<div id="bookModal" class="book-modal">
+
+    <div class="book-modal-content">
+
+        <span
+        class="close-modal"
+        onclick="closeBookModal()"
+        >
+            ✖
+        </span>
+
+        <h2 id="modalTitle"></h2>
+
+        <h3 id="modalAuthor"></h3>
+
+        <p id="modalDescription"></p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function openBookModal(title, author, description) {
+
+    playPageSound();
+
+    document.getElementById("bookModal").style.display = "flex";
+
+    document.getElementById("modalTitle").innerText = title;
+
+    document.getElementById("modalAuthor").innerText = author;
+
+    document.getElementById("modalDescription").innerText = description;
+}
+
+function closeBookModal() {
+
+    document.getElementById("bookModal").style.display = "none";
+}
+
+</script>
+
+{% endblock %}

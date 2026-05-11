@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>📖 Borrow History</h2>
+
+<table>
+
+<tr>
+    <th>User</th>
+    <th>Book</th>
+    <th>Borrow Date</th>
+    <th>Due Date</th>
+    <th>Return Date</th>
+    <th>Fine ($)</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for r in records %}
+
+<tr>
+
+    <td>{{ r.user.username }}</td>
+
+    <td>{{ r.book.title }}</td>
+
+    <td>{{ r.borrow_date.strftime('%Y-%m-%d') }}</td>
+
+    <td>{{ r.due_date.strftime('%Y-%m-%d') }}</td>
+
+    <td>
+        {% if r.return_date %}
+            {{ r.return_date.strftime('%Y-%m-%d') }}
+        {% else %}
+            Not returned
+        {% endif %}
+    </td>
+
+    <td>${{ r.fine }}</td>
+
+    <td>
+
+        {% if r.return_date %}
+            ✅ Returned
+        {% else %}
+            📚 Borrowed
+        {% endif %}
+
+    </td>
+
+    <td>
+
+        {% if not r.return_date %}
+            <a class="button orange" href="/return/{{ r.id }}">
+                Return
+            </a>
+        {% else %}
+            Done
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

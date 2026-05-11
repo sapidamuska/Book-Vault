@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="search-results-page">
+
+    <div class="search-title-area">
+
+        <h2>🦉 The Owl is Searching the Archives...</h2>
+
+        <p>
+            Ancient shelves awaken as the magical owl searches for hidden knowledge.
+        </p>
+
+    </div>
+
+    <form method="GET" action="/search" class="magic-search-form">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search magical books, authors, genres..."
+            value="{{ query or '' }}"
+        >
+         <button type="submit">
+            ✨ Search the Vault
+        </button>
+
+    </form>
+
+    <div class="search-animation-scene">
+
+        <div class="search-book-stack stack1">📚</div>
+        <div class="search-book-stack stack2">📖</div>
+        <div class="search-book-stack stack3">📘</div>
+        <div class="search-book-stack stack4">📕</div>
+
+        <div class="owl-searching">
+            🦉
+        </div>
+
+    </div>
+
+    {% if books %}
+
+    <div class="found-message">
+        ✨ The owl discovered {{ books|length }} magical book(s)! ✨
+    </div>
+ <div class="enchanted-book-grid">
+
+        {% for book in books %}
+
+        <div class="enchanted-book-card found-card">
+
+            <div class="found-glow"></div>
+
+            <div class="book-top">
+
+                <div class="book-icon">
+                    📖
+                </div>
+
+                <div>
+                    <h3>{{ book.title }}</h3>
+                    <p class="author-name">{{ book.author }}</p>
+                </div>
+
+            </div>
+
+            <div class="book-info">
+                <p><strong>Year:</strong> {{ book.year }}</p>
+                <p><strong>Language:</strong> {{ book.language }}</p>
+                <p><strong>Genre:</strong> {{ book.genre }}</p>
+                </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% elif query %}
+
+    <div class="empty-warning">
+        🦉 The owl could not find any magical books matching your search.
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

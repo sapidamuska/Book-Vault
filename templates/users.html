@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>👥 Manage Users</h2>
+
+<table>
+
+<tr>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Approved</th>
+    <th>Actions</th>
+</tr>
+
+{% for user in users %}
+
+<tr>
+
+    <td>{{ user.username }}</td>
+
+    <td>{{ user.email }}</td>
+
+    <td>{{ user.role }}</td>
+
+    <td>
+
+        {% if user.approved %}
+            ✅ Yes
+        {% else %}
+            ❌ No
+        {% endif %}
+
+    </td>
+
+    <td>
+
+        {% if not user.approved %}
+            <a class="button green" href="/approve/{{ user.id }}">
+                Approve
+            </a>
+        {% endif %}
+
+        <a class="button orange" href="/edit-user/{{ user.id }}">
+            Edit
+        </a>
+
+        {% if session.get('role') == 'admin' %}
+
+            <a class="button red" href="/delete-user/{{ user.id }}">
+                Delete
+            </a>
+
+        {% endif %}
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>👤 Edit User</h2>
+
+<form method="POST">
+
+    <label>Username</label><br>
+    <input type="text" name="username" value="{{ user.username }}" required><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" value="{{ user.email }}" required><br><br>
+
+    {% if session.get('role') == 'admin' %}
+
+    <label>Role</label><br>
+
+    <select name="role">
+
+        <option value="admin"
+        {% if user.role == 'admin' %}
+        selected
+        {% endif %}
+        >
+        Admin
+        </option>
+
+        <option value="librarian"
+        {% if user.role == 'librarian' %}
+        selected
+        {% endif %}
+        >
+        Librarian
+        </option>
+
+        <option value="member"
+        {% if user.role == 'member' %}
+        selected
+        {% endif %}
+        >
+        Member
+        </option>
+
+    </select><br><br>
+
+    {% else %}
+
+    <p>
+        <strong>Role:</strong>
+        {{ user.role }}
+    </p>
+
+    {% endif %}
+
+    <label>
+        <input
+            type="checkbox"
+            name="approved"
+
+            {% if user.approved %}
+            checked
+            {% endif %}
+        >
+        Approved
+    </label>
+
+    <br><br>
+
+    <button type="submit">Save Changes</button>
+
+</form>
+
+{% endblock %}

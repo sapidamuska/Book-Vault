@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="add-book-page">
+
+    <!-- MAGIC BOOK -->
+    <div class="magic-book-container">
+
+        <div class="magic-book">
+
+            <div class="book-page left-page"></div>
+            <div class="book-page right-page"></div>
+
+            <div class="book-glow"></div>
+
+        </div>
+
+        <h3 class="book-text">
+            The Ancient Archive
+        </h3>
+
+    </div>
+
+
+    <!-- FORM -->
+    <div class="book-form-section">
+
+        <h2>📚 Add Enchanted Book</h2>
+
+        <p class="book-desc">
+            Add a magical manuscript into the eternal vault of knowledge.
+        </p>
+
+        <form method="POST">
+
+            <input type="text" name="title" placeholder="Book Title" required>
+
+            <input type="text" name="author" placeholder="Author" required>
+
+            <input type="number" name="year" placeholder="Publication Year" required>
+
+            <input type="text" name="language" placeholder="Language" required>
+
+            <input type="text" name="genre" placeholder="Genre" required>
+
+            <textarea name="description" placeholder="Book Description"></textarea>
+
+            <button type="submit">
+                ✨ Add to the Vault
+            </button>
+            </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

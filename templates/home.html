@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="hero-section">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <h1 class="main-title">
+            ✨ Welcome to Book Vault ✨
+        </h1>
+
+        <p class="hero-subtitle">
+            Enter the world of magical knowledge, ancient archives,
+            glowing books, and enchanted wisdom.
+        </p>
+
+        <div class="hero-buttons">
+
+            {% if session.get('user') %}
+
+                <a href="/dashboard" class="enter-btn">
+                    Enter the Library
+                </a>
+
+            {% else %}
+
+                <a href="/login" class="enter-btn">
+                    Login
+                </a>
+
+                <a href="/register" class="magic-btn">
+                    Register
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- FLOATING BOOKS -->
+
+    <div class="floating-book book1">📖</div>
+    <div class="floating-book book2">📚</div>
+    <div class="floating-book book3">📜</div>
+
+    <!-- MAGIC GLOW -->
+
+    <div class="magic-circle"></div>
+
+</div>
+
+{% endblock %}
