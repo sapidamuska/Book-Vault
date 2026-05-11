@@ -211,7 +211,3 @@ Stores reminders and overdue notices.
 | `/warnings`    | GET       | Warning system    |
 | `/users`       | GET       | Manage users      |
 
-
-
-```
-```
