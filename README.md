@@ -99,6 +99,14 @@ python app.py
 ```text
 http://127.0.0.1:5000
 ```
+Once you are logged in, you can use the following admin credentials:
+
+Username: admin
+Password: admin123
+
+From there, you will have access to all system features. You can also test other user roles by registering a new username and password, then approving the account through the admin panel. While approving the user, you can select the specific role you want to test.
+
+Below is a detailed preview of what each role can do.
 
 # User Roles
 
