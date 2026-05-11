@@ -211,3 +211,4 @@ Stores reminders and overdue notices.
 | `/warnings`    | GET       | Warning system    |
 | `/users`       | GET       | Manage users      |
 
+Developed By Sapida Muska Masood (Backend + Frontend + Testing), Hafsa Langari (Backend + Frontend + Testing), Hafizullah Khplwak (Frontend, Documentation, Testing), Mufeedullah Mamozai (Database + ERD + Testing). 
